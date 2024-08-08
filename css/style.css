@@ -8,13 +8,13 @@
 
 body {
     font-family: 'Lato', sans-serif;
-    background-color: #F5F5DC;
+    background-color: #ffebb4;
     color: #333333;
     overflow-x: hidden;
 }
 
 header {
-    background-color: #754975;
+    background-color: #8f5f28;
     padding: 20px;
     text-align: center;
 }
@@ -83,7 +83,7 @@ p {
 }
 
 footer {
-    background-color: #754975;
+    background-color: #8f5f28;
     padding: 10px;
     text-align: center;
     color: #FFF599;

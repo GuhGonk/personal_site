@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   image.addEventListener('click', () => {
       if (isSpinning) {
-          // Increase speed by 25% on each click, up to a maximum of 2x the initial speed
+          // +25% speed per click, max = 200%
           rotationSpeed = Math.min(rotationSpeed * 1.25, 180 * 2);
       } else {
           isSpinning = true;
       }
       // Reset the spin start time
       spinStartTime = performance.now();
-      // If not already animating, start the animation
+      // 
       if (!animationFrame) {
           animationFrame = requestAnimationFrame(updateRotation);
       }
