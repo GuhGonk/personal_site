@@ -1,59 +1,40 @@
 document.addEventListener('DOMContentLoaded', function() {
   const image = document.querySelector('main img');
   let isSpinning = false;
-  let rotationSpeed = 90; // Initial speed: half rotation per second
+  let baseRotationSpeed = 720; // Initial base speed: quarter rotation per second
   let currentRotation = 0;
   let spinStartTime = 0;
   let animationFrame;
+  const spinDuration = 3000; // Total spin duration in milliseconds
 
   image.addEventListener('click', () => {
-      if (isSpinning) {
-          // +25% speed per click, max = 200%
-          rotationSpeed = Math.min(rotationSpeed * 1.25, 180 * 2);
-      } else {
-          isSpinning = true;
-      }
-      // Reset the spin start time
+    if (!isSpinning) {
+      isSpinning = true;
       spinStartTime = performance.now();
-      // 
-      if (!animationFrame) {
-          animationFrame = requestAnimationFrame(updateRotation);
-      }
+      baseRotationSpeed = Math.min(baseRotationSpeed * 100, 1000);
+      animationFrame = requestAnimationFrame(updateRotation);
+    }
   });
 
   function updateRotation(timestamp) {
-      const elapsed = timestamp - spinStartTime;
+    const elapsed = timestamp - spinStartTime;
+    const progress = elapsed / spinDuration;
 
-      if (elapsed < 1000) { // Spin for 1 second
-          currentRotation += rotationSpeed * (elapsed / 1000);
-          image.style.transform = `rotate(${currentRotation}deg)`;
-          animationFrame = requestAnimationFrame(updateRotation);
-      } else {
-          // Calculate the number of full rotations
-          const fullRotations = Math.floor(currentRotation / 360);
-          // Smoothly rotate to the nearest multiple of 360 degrees
-          const targetRotation = (fullRotations + 1) * 360;
-          const remainingRotation = targetRotation - currentRotation;
-          const duration = 500; // Duration for the final rotation (in milliseconds)
-          const startTime = timestamp;
+    if (progress < 1) {
+      // Calculate current speed: increases until 0.5, then decreases
+      const speedFactor = progress <= 0.5 ? progress * 2 : (1 - progress) * 2;
+      const currentSpeed = baseRotationSpeed * speedFactor;
 
-          function finishRotation(time) {
-              const progress = Math.min((time - startTime) / duration, 1);
-              currentRotation += remainingRotation * progress;
-              image.style.transform = `rotate(${currentRotation}deg)`;
+      currentRotation += currentSpeed * (1 / 60); // Assuming 60 FPS
+      image.style.transform = `rotate(${currentRotation}deg)`;
+      animationFrame = requestAnimationFrame(updateRotation);
+    } else {
+      // Keep the final rotation
+      image.style.transform = `rotate(${currentRotation}deg)`;
 
-              if (progress < 1) {
-                  animationFrame = requestAnimationFrame(finishRotation);
-              } else {
-                  // Reset everything
-                  isSpinning = false;
-                  rotationSpeed = 180;
-                  currentRotation = 0;
-                  animationFrame = null;
-              }
-          }
-
-          animationFrame = requestAnimationFrame(finishRotation);
-      }
+      // Reset spinning state
+      isSpinning = false;
+      animationFrame = null;
+    }
   }
 });

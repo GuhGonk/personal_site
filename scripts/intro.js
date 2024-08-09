@@ -1,32 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const intro = document.querySelector('.intro');
-  const introText = document.querySelector('.intro-text');
   const mainContent = document.querySelector('main');
+
+  // Create intro elements
+  const intro = document.createElement('div');
+  intro.className = 'intro';
+  const introText = document.createElement('div');
+  introText.className = 'intro-text';
+  introText.textContent = 'Your intro text here';
+  intro.appendChild(introText);
+  document.body.insertBefore(intro, mainContent);
 
   // Hide main content initially
   mainContent.style.opacity = '0';
   mainContent.style.display = 'none';
 
-  // Add appear class to intro text after 0.5 seconds
+  // Fade in intro text
   setTimeout(() => {
       introText.classList.add('appear');
   }, 500);
 
-  // Start fade out after 1.5 seconds
+  // Slide out intro after 2.5 seconds
   setTimeout(() => {
-      intro.style.opacity = '0';
-      intro.style.transition = 'opacity 1s ease-in-out';
+      intro.classList.add('slide-out');
       
-      // Start fading in main content
+      // Fade in main content
       mainContent.style.display = 'block';
       setTimeout(() => {
           mainContent.style.opacity = '1';
-          mainContent.style.transition = 'opacity 1s ease-in-out';
-      }, 50);
-  }, 1500);
-
-  // Remove intro element after fade out
-  setTimeout(() => {
-      intro.style.display = 'none';
+      }, 500);
   }, 2500);
+
+  // Remove intro element after animation
+  setTimeout(() => {
+      intro.remove();
+  }, 3500);
 });
