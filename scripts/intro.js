@@ -1,37 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const mainContent = document.querySelector('main');
+    const intro = document.getElementById('intro');
+    const introText = document.getElementById('intro-text');
 
-  // Create intro elements
-  const intro = document.createElement('div');
-  intro.className = 'intro';
-  const introText = document.createElement('div');
-  introText.className = 'intro-text';
-  introText.textContent = 'Your intro text here';
-  intro.appendChild(introText);
-  document.body.insertBefore(intro, mainContent);
+    // Check if the animation has been played before
+    if (localStorage.getItem("introAnimationPlayed") === null) {
+        // Show the intro screen
+        intro.style.display = 'flex';
 
-  // Hide main content initially
-  mainContent.style.opacity = '0';
-  mainContent.style.display = 'none';
+        // Show the text
+        setTimeout(() => {
+            introText.style.opacity = '1';
+            introText.style.transform = 'translateY(0)';
+        }, 400);
 
-  // Fade in intro text
-  setTimeout(() => {
-      introText.classList.add('appear');
-  }, 500);
+        // Slide up and fade out the text
+        setTimeout(() => {
+            introText.classList.add('slide-up', 'fade-out');
+        }, 1000);
 
-  // Slide out intro after 2.5 seconds
-  setTimeout(() => {
-      intro.classList.add('slide-out');
-      
-      // Fade in main content
-      mainContent.style.display = 'block';
-      setTimeout(() => {
-          mainContent.style.opacity = '1';
-      }, 500);
-  }, 2500);
+        // Slide up the entire intro screen
+        setTimeout(() => {
+            intro.classList.add('slide-up');
+        }, 2500);
 
-  // Remove intro element after animation
-  setTimeout(() => {
-      intro.remove();
-  }, 3500);
+        // Remove the intro element after slide-up animation completes
+        intro.addEventListener('transitionend', function(e) {
+            if (e.propertyName === 'transform' && intro.classList.contains('slide-up')) {
+                intro.style.display = 'none';
+                // Set the flag in localStorage
+                localStorage.setItem("introAnimationPlayed", "true");
+            }
+        });
+    } else {
+        // If the animation has been played before, just hide the intro screen
+        intro.style.display = 'none';
+    }
 });

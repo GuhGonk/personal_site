@@ -6,28 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Portfolio</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/menu.css">
 </head>
 
 <body>
-    <header>
-        <nav>
+    <div class="site-menu">
+        <button id="menu-toggle">Menu</button>
+        <nav id="dropdown-menu">
             <ul>
                 <li><a href="../site_pages/index.html">Home</a></li>
                 <li><a href="../site_pages/projects.html">Projects</a></li>
             </ul>
         </nav>
-    </header>
+    </div>
 
     <main>
         <section class="project">
-            <h2>Songmellier</h2>
+            <h1>Songmellier</h2>
             <!-- <img src="path/to/project1-image.jpg" alt="Project 1 Screenshot"> -->
             <p>Utilizing data gathered from Spotify's API, I developed a recommendation system based on song input</p>
             <a href="https://github.com/GuhGonk/Songmellier">View Project</a>
         </section>
     
         <section class="project">
-            <h2>Regression Practice - Stock Price</h2>
+            <h1>Regression Practice - Stock Price</h2>
             <!-- <img src="path/to/project2-image.jpg" alt="Project 2 Screenshot"> -->
             <p>Various notebooks/files showcasing regression analysis and models for ETFs based on the big 3 (American) indices.</p>
             <a href="https://github.com/GuhGonk/stock_price">View Project</a>
@@ -38,5 +40,6 @@
         <p>&copy; 2024 Tyler Yang</p>
     </footer>
 
+    <script src="../scripts/menu.js"></script>
 </body>
 </html>

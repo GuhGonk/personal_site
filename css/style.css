@@ -13,11 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-header {
-    background-color: #8f5f28;
-    padding: 20px;
-    text-align: center;
-}
 
 nav ul {
     list-style: none;
@@ -37,7 +32,7 @@ nav a {
 }
 
 main {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -45,14 +40,14 @@ main {
 
 section {
     /* background-color: #0d5e20; */
-    padding: 20px;
-    margin-bottom: 20px;
+    /* padding: 20px; */
+    margin-bottom: 20px; 
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-size: 40px;
     margin-bottom: 10px;
 }
 
@@ -66,21 +61,6 @@ p {
     margin-bottom: 20px;
 }
 
-.button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.button:hover {
-    background-color: #555;
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
 
 footer {
     background-color: #8f5f28;
@@ -89,14 +69,5 @@ footer {
     color: #FFF599;
 }
 
-img {
-    height: 400px;
-    width: 250px;
-    /* border: 1px solid black; */
-}
-  
 
-#image {
-    transition: transform 0.1s linear;
-}
   

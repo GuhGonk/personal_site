@@ -1,0 +1,10 @@
+img {
+    height: 400px;
+    width: 250px;
+    margin-left: 10%;
+    /* border: 1px solid black; */
+}
+  
+#image {
+    transition: transform 0.1s linear;
+}
