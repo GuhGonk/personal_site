@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/intro.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/image.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
 </head>
 
 <body>
@@ -23,12 +24,22 @@
             <ul>
                 <li><a href="../site_pages/index.html">Home</a></li>
                 <li><a href="../site_pages/projects.html">Projects</a></li>
+                <li class="nested-dropdown">
+                    <a href="#" id="contact-toggle">Contact</a>
+                    <ul class="nested-menu">
+                        <li><a href="mailto:yangtyler3@gmail.com">Email</a></li>
+                        <li><a href="https://github.com/GuhGonk" target="_blank">GitHub</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
 
     <main>
-        <img src="../image_assets/Acorn.png" alt="acorn">
+        <div class="image-container">
+            <img src="../image_assets/Acorn.png" alt="acorn">
+            <div id="text-bubble" class="hidden">Click me!</div>
+        </div>
     </main>
 
     <footer>

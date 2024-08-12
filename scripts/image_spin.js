@@ -1,16 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
   const image = document.querySelector('main img');
+  const textBubble = document.getElementById('text-bubble');
   let isSpinning = false;
-  let baseRotationSpeed = 720; // Initial base speed: 2 rotations per second
+  let baseRotationSpeed = 720;
   let currentRotation = 0;
   let spinStartTime = 0;
   let animationFrame;
   let clickCount = 0;
-  const maxSpinDuration = 2000; // Maximum spin duration in milliseconds
-  const clickWindowDuration = 5000; // Duration of the rolling window in milliseconds
+  const maxSpinDuration = 2000;
+  const clickWindowDuration = 5000;
   let lastClickTime = 0;
+  let inactivityTimer;
+
+  function showTextBubble() {
+    textBubble.classList.remove('hidden');
+    // Force a reflow before removing the 'hidden' class
+    void textBubble.offsetWidth;
+    textBubble.style.opacity = '1';
+  }
+
+  function hideTextBubble() {
+    textBubble.style.opacity = '0';
+    setTimeout(() => {
+      textBubble.classList.add('hidden');
+    }, 300); // This should match the transition duration in CSS
+  }
+
+  function startInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      showTextBubble();
+    }, 5000);
+  }
 
   image.addEventListener('click', () => {
+    if (!textBubble.classList.contains('hidden')) {
+      hideTextBubble();
+    }
     const currentTime = performance.now();
     if (currentTime - lastClickTime > clickWindowDuration) {
       clickCount = 0;
@@ -21,13 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!isSpinning) {
       isSpinning = true;
       spinStartTime = currentTime;
-      baseRotationSpeed *= 1.5 ** clickCount; // Increase speed based on click count
+      baseRotationSpeed *= 1.5 ** clickCount;
       animationFrame = requestAnimationFrame(updateRotation);
     } else {
-      // Reset the spin duration and increase speed
       spinStartTime = currentTime;
       baseRotationSpeed *= 1.5;
     }
+    
+    // Reset the inactivity timer on click
+    startInactivityTimer();
   });
 
   function updateRotation(timestamp) {
@@ -35,25 +63,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const progress = elapsed / maxSpinDuration;
 
     if (progress < 1) {
-      // Calculate current speed: increases until 0.5, then decreases
       const speedFactor = progress <= 0.4 ? progress * 2 : (1 - progress) * 2;
       const currentSpeed = baseRotationSpeed * speedFactor;
-
-      // Calculate rotation based on area under the speed curve
       const rotationChange = currentSpeed * (1 / 60) * maxSpinDuration / 1000;
       currentRotation += rotationChange;
 
       image.style.transform = `rotate(${currentRotation}deg)`;
       animationFrame = requestAnimationFrame(updateRotation);
     } else {
-      // Keep the final rotation
       image.style.transform = `rotate(${currentRotation}deg)`;
-
-      // Reset spinning state and click count
       isSpinning = false;
       clickCount = 0;
-      baseRotationSpeed = 720; // Reset to initial speed
+      baseRotationSpeed = 720;
       animationFrame = null;
+      startInactivityTimer();
     }
   }
+  
+  textBubble.classList.add('hidden');
+  textBubble.style.opacity = '0';
+
+  // Start the initial timer
+  startInactivityTimer();
 });

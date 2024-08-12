@@ -1,3 +1,4 @@
+/* Image */
 img {
     height: 400px;
     width: 250px;
@@ -7,4 +8,61 @@ img {
   
 #image {
     transition: transform 0.1s linear;
+}
+
+/* Text bubble */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+#text-bubble {
+    position: absolute;
+    top: 20%;
+    left: calc(100% + 130px);
+    transform: translateX(-50%);
+    background-color: white;
+    border: 4px solid black;
+    padding: 15px;
+    font-size: 18px;
+    /* font-family: 'Press Start 2P', cursive; */
+    width: 200px;
+    height: 100px;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#text-bubble::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    border: 15px solid transparent;
+    border-right-color: black;
+    transform: translateY(-50%);
+}
+
+#text-bubble::after {
+    content: '';
+    position: absolute;
+    right: calc(100% - 4px);
+    top: 50%;
+    border: 11px solid transparent;
+    border-right-color: white;
+    transform: translateY(-50%);
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
