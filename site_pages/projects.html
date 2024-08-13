@@ -6,25 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Portfolio</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
 </head>
 
 <body>
-    <div class="site-menu">
-        <button id="menu-toggle">Menu</button>
-        <nav id="dropdown-menu">
-            <ul>
-                <li><a href="../site_pages/index.html">Home</a></li>
-                <li><a href="../site_pages/projects.html">Projects</a></li>
-                <li class="nested-dropdown">
-                    <a href="#" id="contact-toggle">Contact</a>
-                    <ul class="nested-menu">
-                        <li><a href="mailto:yangtyler3@gmail.com">Email</a></li>
-                        <li><a href="https://github.com/GuhGonk" target="_blank">GitHub</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div class="dropdown">
+        <button onclick="dropDownFunc()" class="dropbtn">Menu</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="../site_pages/index.html">Home</a>
+            <a href="../site_pages/projects.html">Projects</a>
+            <a href="#">Contact Me</a>
+        </div>
     </div>
 
     <main>
@@ -51,6 +43,6 @@
         <p>&copy; 2024 Tyler Yang</p>
     </footer>
 
-    <script src="../scripts/menu.js"></script>
+    <script src="../scripts/dropdown.js"></script>
 </body>
 </html>
